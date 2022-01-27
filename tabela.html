@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charrset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial scale =1.0">
+    <meta http-equiv="X-UA-Compatible" content="e=edge">
+
+<style>
+    body{
+        text-align: center;
+    }
+    td{
+        padding: 5px;
+        margin: 2px;
+    }
+    
+    table{
+        margin: auto;
+        width: 500px;
+        background-color: cornflowerblue;
+        color: black;
+    }
+
+    h1{
+        margin: auto;
+    }
+</style>
+
+<script>
+    var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+    };
+
+    fetch("https://cadastros-951bc-default-rtdb.firebaseio.com/users.json", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        
+        let usuarios = JSON.parse(result)
+        
+        x = 1
+        for (var chave in usuarios) {
+            usuario = (usuarios[chave])
+
+            tbl = document.getElementById('tabela')
+            var row = tbl.insertRow(x);
+            
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+
+            cell1.innerHTML = usuario.Nome;
+            cell2.innerHTML = usuario.email;
+            cell3.innerHTML = usuario.Telefone;
+            cell4.innerHTML = usuario.CPF;
+            
+            x++;
+        }
+    }   
+    )
+    .catch(error => console.log('error', error));
+    
+  
+
+</script>
+
+</head>
+ <body>
+
+<h1>Lista de clientes</h1>
+
+<table table id="tabela">
+    <tr>
+        <td>Nome</td>
+        <td>E-mail</td>
+        <td>Telefone</td>
+        <td>CPF</td>
+    </tr>
+</table>
+ <br><br>
+<a href="index.html">cadastrar novo cliente</a>
+
+
+
+</body>
+
+
+
+
+</html>

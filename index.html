@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charrset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial scale =1.0">
+    <meta http-equiv="X-UA-Compatible" content="e=edge">
+    <link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
+
+    <style>
+        body { 
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1{
+            text-align: center;
+            margin: auto;
+            font: Verdana;
+        }
+
+        form{
+
+            background-color: cornflowerblue;
+            padding: 30px;
+            margin: auto;
+            width: 400px;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+
+        .input{
+            height: 15px;
+            background-color: black;
+            color: #fff;
+            border-radius: 5px; 
+            width: 100%;
+        }
+
+        label{
+            width: 180px;
+            display: inline-block;   
+        }
+
+        .botao{
+            color: white;
+            column-rule-color: white;
+            border: 0px;
+            height: 25px;
+            border-radius: 5px;
+            margin-top: 25px;
+        }
+
+        .efeito{ 
+                background-color: #0a009c;
+        }
+
+        .efeito:hover {
+            background: rgba(0, 0, 0, 0);
+            color: white;
+            box-shadow: inset 0 0 0 3px #0a009c;
+
+        }
+        </style>
+
+        <script>
+            function gravarDados(){
+                if(document.getElementById('Nome').value == ''){
+                alert('Preencha seu nome')
+                return false;
+            }
+            if(document.getElementById('email').value == '') {
+            alert('Preencha o seu email!')
+            return false;
+            }
+            if(document.getElementById('Telefone').value == ''){
+                alert('Preencha seu Telefone')
+                return false;
+            }
+            if(document.getElementById('CPF').value == ''){
+                alert('Preencha seu CPF')
+                return false;
+            }
+
+            // gravação dos dados
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw=JSON.stringify({
+                "Nome": document.getElementById('Nome').value,
+                "email": document.getElementById('email').value,
+                "Telefone": document.getElementById('Telefone').value,
+                "CPF": document.getElementById('CPF').value,
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                Headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://cadastros-951bc-default-rtdb.firebaseio.com/users.json", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+         }
+            
+
+        </script>
+
+ </head>   
+<body>
+ <h1>Cadastro de clientes</h1>
+ <form id="formulario">
+      <label for="">Nome</label>
+      <input class="input" type="text" id="Nome" /> <br>
+
+      <label for="">Email</label>
+      <input class="input" type="text" id="email" /> <br>
+
+      <label for="">Telefone</label>
+      <input  class="input" type="text" id="Telefone" /> <br>
+
+      <label for="">CPF</label>
+      <input  class="input" type="text" id="CPF" /> <br>
+
+      <input class="botao efeito" onclick="gravarDados()" type="button" value="Gravar Cliente">
+      <br><br>
+      <a href="tabela.html">listagem</a>
+
+
+ </form>
+
+ </body>
+
+
+
+</html>
